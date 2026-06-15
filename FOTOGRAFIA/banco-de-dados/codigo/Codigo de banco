@@ -1,0 +1,51 @@
+CREATE DATABASE fotografia;
+USE fotografia;
+
+CREATE TABLE usuario (
+    idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(100) NOT NULL,
+    
+    dataCadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CHECK (email LIKE '%@%')
+);
+
+CREATE TABLE estilo_fotografia (
+    idEstilo INT PRIMARY KEY AUTO_INCREMENT,
+    nomeEstilo VARCHAR(100)
+);
+
+CREATE TABLE resultado_quiz (
+    idResultado INT PRIMARY KEY AUTO_INCREMENT,
+    dataResultado DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fkUsuario INT UNIQUE,
+    fkEstilo INT,
+
+    FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario),
+    FOREIGN KEY (fkEstilo) REFERENCES estilo_fotografia(idEstilo)
+);
+
+INSERT INTO estilo_fotografia (nomeEstilo) 
+VALUES      ('Retrato'),
+			      ('Paisagem'),
+		      	('Natureza'),
+		      	('Urbana'),
+			      ('Documental'),
+			      ('Fotojornalismo'),
+			      ('Arquitetura'),
+			      ('Moda'),
+			      ('Esportiva'),
+			      ('Vida Selvagem'),
+			      ('Macro'),
+      			('Astrofotografia'),
+      			('Noturna'),
+      			('Preto e Branco'),
+      			('Artística'),
+      			('Conceitual'),
+      			('Street Photography'),
+      			('Minimalista'),
+      			('Viagem'),
+      			('Casamento');
+            
+            
