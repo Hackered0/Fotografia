@@ -23,4 +23,7 @@ Ajuste o seu foco. Mude a sua perspectiva. Explore as galerias.
 Não deixe que os outros mudem quem você é de verdade. 
 >O mundo da fotografia está esperando pelo seu olhar.
 
-
+Explore este espaço com calma. 
+Permita-se saborear cada história 
+e aproveite o conteúdo que criei especialmente para o seu olhar. 
+>A casa é sua.
