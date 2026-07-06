@@ -234,4 +234,56 @@
   function sumirMensagem() {
     cardErro.style.display = "none";
   }
+  function validarCadastro() {
+
+    var nome = nome_input.value;
+    var email = email_input.value;
+    var senha = senha_input.value;
+    var confirmacao = confirmacao_senha_input.value;
+
+    if (nome == "" && email == "" && senha == "" && confirmacao == "") {
+
+        alert("Preencha todos os campos.");
+        return false;
+
+    } else if (nome == "") {
+
+        alert("Preencha o nome.");
+        return false;
+
+    } else if (email == "") {
+
+        alert("Preencha o e-mail.");
+        return false;
+
+    } else if (!email.includes("@") || !email.includes(".")) {
+
+        alert("Digite um e-mail válido.");
+        return false;
+
+    } else if (senha == "") {
+
+        alert("Preencha a senha.");
+        return false;
+
+    } else if (senha.length < 8) {
+
+        alert("A senha deve possuir pelo menos 8 caracteres.");
+        return false;
+
+    } else if (confirmacao == "") {
+
+        alert("Confirme a senha.");
+        return false;
+
+    } else if (senha != confirmacao) {
+
+        alert("As senhas não coincidem.");
+        return false;
+
+    }
+
+    return true;
+
+}
 </script>
