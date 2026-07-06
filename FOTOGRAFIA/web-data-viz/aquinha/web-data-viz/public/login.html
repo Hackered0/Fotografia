@@ -183,5 +183,32 @@
     function sumirMensagem() {
         cardErro.style.display = "none"
     }
+function validarLogin() {
 
+    var email = email_input.value;
+    var senha = senha_input.value;
+
+    if (email == "" && senha == "") {
+
+        alert("Preencha todos os campos.");
+        return false;
+
+    } else if (email == "") {
+
+        alert("Preencha o e-mail.");
+        return false;
+
+    } else if (senha == "") {
+
+        alert("Preencha a senha.");
+        return false;
+
+    } else if (!email.includes("@") || !email.includes(".")) {
+    
+        alert("Digite um e-mail válido.");
+        return false;
+    }
+
+    return true;
+}
 </script>
