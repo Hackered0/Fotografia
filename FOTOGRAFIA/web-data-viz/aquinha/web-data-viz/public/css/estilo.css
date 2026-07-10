@@ -1246,3 +1246,158 @@ input {
     background-color:#333333;
 }
 
+
+
+body {
+    background-color: #f7f2eb;
+    color: #3d3129;
+}
+
+.bannerr {
+    width: 100%;
+    height: 700px;
+    background-size: cover;
+    background-position: center;
+}
+
+.fundoo {
+    width: 100%;
+    height: 700px;
+    background-color: rgba(63, 44, 44, 0.89);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tituloo {
+    text-align: center;
+    color: white;
+}
+
+.tituloo h1 {
+    font-size: 70px;
+    margin-bottom: 20px;
+}
+
+.tituloo p {
+    font-size: 24px;
+}
+
+.historiaa {
+    width: 80%;
+    margin: auto;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.fotoo img{
+    width: 100%;
+    height: 550px;
+    background-color: #d8c8ba;
+    border-radius: 20px;
+}
+
+.texto {
+    width: 50%;
+}
+
+.texto h2 {
+    font-size: 45px;
+    margin-bottom: 25px;
+}
+
+.texto p {
+    font-size: 20px;
+    line-height: 32px;
+    margin-bottom: 20px;
+}
+
+.inspiracaoo {
+    width: 80%;
+    margin: auto;
+    padding-top: 50px;
+    padding-bottom: 80px;
+    text-align: center;
+}
+
+.caixas{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    align-items: center; 
+}
+
+.caixaa {
+    width: 30%;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.caixaa h3 {
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.caixaa p {
+    line-height: 28px;
+}
+
+.flores {
+    width: 80%;
+    margin: auto;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    text-align: center;
+}
+
+.linha {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.imagem {
+    width: 23%;
+    height: 250px;
+    background-color: #d8c8ba;
+    border-radius: 10px;
+}
+
+.imagem img {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+}
+.frasee {
+    width: 100%;
+    padding-top: 120px;
+    padding-bottom: 120px;
+    background-color: #e6d8cb;
+    text-align: center;
+}
+
+.frasee h2 {
+    font-size: 42px;
+    font-weight: normal;
+}
+
+.finall {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.finall h2 {
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+.finall p {
+    font-size: 20px;
+    line-height: 30px;
+}
