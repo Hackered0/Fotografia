@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - LYRIS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body onload="onloadEsconder()">
+
+    <div class="menu">
+        <h1>LYRIS</h1>
+        <p><a href="dashboard.html">Dashboard</a></p>
+        <p><a href="quiz.html">Quiz</a></p>
+        <p><a href="../index.html">Sair</a></p>
+    </div>
+
+    <div class="conteudo" id="pontuacaoEJogo">
+
+        <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+
+        <div id="pontuacao" class="coluna caixa borda1">
+            <div id="pontuacaoDuranteJogo" class="coluna espaco">
+                <span class="caixa">Quantidade de acertos: <span id="spanCertas"></span></span>
+                <span class="caixa">Quantidade de erros: <span id="spanErradas"></span></span>
+            </div>
+            <div id="pontuacaoFinalJogo" class="coluna espaco">
+                <span id="pontuacaoFinal" class="caixa">Pontuação Final:
+                    <span id="spanPontuacaoFinal">***</span>
+                </span>
+                <span id="msgFinal" class="caixa">***</span>
+            </div>
+        </div>
+
+        <div id="jogo" class="caixa coluna borda2">
+
+            <div id="infoQuestao" class="espaco">
+                <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
+                    questões.</span>
+            </div>
+
+            <div id="perguntaDaQuestaoAtual" class="espaco">
+                <span id="spanQuestaoExibida" class="negrito"></span>
+            </div>
+
+            <div id="infoAlternativas" class="espaco">
+                <span><em>Escolha uma opção dentre as abaixo:</em></span>
+            </div>
+
+            <div id="opcoes" class="coluna espaco">
+                <span>
+                    <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" />
+                    <label for="primeiraOpcao" class="opcao" id="labelOpcaoUm"></label>
+                </span>
+                <span>
+                    <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" />
+                    <label for="segundaOpcao" class="opcao" id="labelOpcaoDois"></label>
+                </span>
+                <span>
+                    <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" />
+                    <label for="terceiraOpcao" class="opcao" id="labelOpcaoTres"></label>
+                </span>
+                <span>
+                    <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" />
+                    <label for="quartaOpcao" class="opcao" id="labelOpcaoQuatro"></label>
+                </span>
+            </div>
+
+            <div id="botoes" class="coluna espaco">
+                <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
+                <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
+                <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    const listaDeQuestoes = [
+        {
+            pergunta: "Qual o nome do primeiro processo fotográfico comercialmente viável?",
+            alternativaA: "Calotipia",
+            alternativaB: "Daguerreótipo",
+            alternativaC: "Colódio Húmido",
+            alternativaD: "Gelatina-Prata",
+            alternativaCorreta: "alternativaB"
+        },
+        {
+            pergunta: "Quem capturou a primeira fotografia permanente em 1826?",
+            alternativaA: "Niépce",
+            alternativaB: "Daguerre",
+            alternativaC: "Talbot",
+            alternativaD: "Eastman",
+            alternativaCorreta: "alternativaA"
+        },
+        {
+            pergunta: "Qual empresa lançou a primeira câmera 'Kodak' em 1888?",
+            alternativaA: "Leica",
+            alternativaB: "Canon",
+            alternativaC: "Kodak",
+            alternativaD: "Nikon",
+            alternativaCorreta: "alternativaC"
+        },
+        {
+            pergunta: "O que significa o termo 'Camera Obscura'?",
+            alternativaA: "Câmera Clara",
+            alternativaB: "Caixa Escura",
+            alternativaC: "Lente Fixa",
+            alternativaD: "Visão Noturna",
+            alternativaCorreta: "alternativaB"
+        },
+        {
+            pergunta: "Quem inventou o processo de Calotipia?",
+            alternativaA: "Fox Talbot",
+            alternativaB: "Louis Daguerre",
+            alternativaC: "Ansel Adams",
+            alternativaD: "Henri Cartier-Bresson",
+            alternativaCorreta: "alternativaA"
+        },
+        {
+            pergunta: "Qual foi o primeiro filme colorido comercialmente bem-sucedido?",
+            alternativaA: "Polaroid",
+            alternativaB: "Kodachrome",
+            alternativaC: "Agfacolor",
+            alternativaD: "Fujifilm",
+            alternativaCorreta: "alternativaB"
+        },
+        {
+            pergunta: "Em que ano foi tirada a primeira fotografia da história?",
+            alternativaA: "1800",
+            alternativaB: "1839",
+            alternativaC: "1826",
+            alternativaD: "1850",
+            alternativaCorreta: "alternativaC"
+        },
+        {
+            pergunta: "Quem é famoso pelo conceito de 'O Momento Decisivo'?",
+            alternativaA: "Sebastião Salgado",
+            alternativaB: "Robert Capa",
+            alternativaC: "Cartier-Bresson",
+            alternativaD: "Man Ray",
+            alternativaCorreta: "alternativaC"
+        },
+        {
+            pergunta: "Qual elemento químico era usado nos primeiros sensores (chapas)?",
+            alternativaA: "Prata",
+            alternativaB: "Ouro",
+            alternativaC: "Ferro",
+            alternativaD: "Cobre",
+            alternativaCorreta: "alternativaA"
+        },
+        {
+            pergunta: "Qual foi a primeira câmera fotográfica digital comercial?",
+            alternativaA: "Sony Mavica",
+            alternativaB: "Dycam Model 1",
+            alternativaC: "Canon RC-701",
+            alternativaD: "Nikon E2",
+            alternativaCorreta: "alternativaB"
+        }
+    ]
+
+    let numeroDaQuestaoAtual = 0
+    let pontuacaoFinal = 0
+    let tentativaIncorreta = 0
+    let certas = 0
+    let erradas = 0
+    let quantidadeDeQuestoes = listaDeQuestoes.length
+
+    function onloadEsconder() {
+        document.getElementById('pontuacao').style.display = "none"
+        document.getElementById('jogo').style.display = "none"
+    }
+
+    function iniciarQuiz() {
+        document.getElementById('pontuacao').style.display = "flex"
+        document.getElementById('jogo').style.display = "flex"
+        document.getElementById('btnIniciarQuiz').style.display = "none"
+        document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes
+        preencherHTMLcomQuestaoAtual(0)
+        btnSubmeter.disabled = false
+        btnProx.disabled = true
+        btnTentarNovamente.disabled = true
+    }
+
+    function preencherHTMLcomQuestaoAtual(index) {
+        habilitarAlternativas(true)
+        const questaoAtual = listaDeQuestoes[index]
+        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1
+        document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
+        document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
+        document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
+        document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
+        document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD;
+    }
+
+    function submeter() {
+        const options = document.getElementsByName("option");
+        let hasChecked = false
+        for (let i = 0; i < options.length; i++) { if (options[i].checked) { hasChecked = true; break; } }
+        if (!hasChecked) { alert("Escolha uma opção."); } else {
+            btnSubmeter.disabled = true
+            btnProx.disabled = false
+            habilitarAlternativas(false)
+            checarResposta()
+        }
+    }
+
+    function habilitarAlternativas(trueOrFalse) {
+        let opcaoEscolhida = trueOrFalse ? false : true
+        primeiraOpcao.disabled = opcaoEscolhida
+        segundaOpcao.disabled = opcaoEscolhida
+        terceiraOpcao.disabled = opcaoEscolhida
+        quartaOpcao.disabled = opcaoEscolhida
+    }
+
+    function avancar() {
+        btnProx.disabled = true
+        btnSubmeter.disabled = false
+        desmarcarRadioButtons()
+        limparCoresBackgroundOpcoes()
+
+        if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
+            numeroDaQuestaoAtual++
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        } else {
+            finalizarJogo()
+        }
+    }
+
+    function tentarNovamente() { window.location.reload() }
+
+    function checarResposta() {
+        const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual]
+        const respostaQuestaoAtual = questaoAtual.alternativaCorreta
+        const options = document.getElementsByName("option");
+        let alternativaCorreta = null
+
+        options.forEach((option) => {
+            if (option.value === respostaQuestaoAtual) { alternativaCorreta = option.labels[0].id }
+        })
+
+        options.forEach((option) => {
+            if (option.checked === true && option.value === respostaQuestaoAtual) {
+                document.getElementById(alternativaCorreta).classList.add("sucesso")
+                pontuacaoFinal++
+                certas++
+                document.getElementById("spanCertas").innerHTML = certas
+            } else if (option.checked && option.value !== respostaQuestaoAtual) {
+                const wrongLabelId = option.labels[0].id
+                document.getElementById(wrongLabelId).classList.add("erro")
+                document.getElementById(alternativaCorreta).classList.add("sucesso")
+                tentativaIncorreta++
+                erradas++
+                document.getElementById("spanErradas").innerHTML = erradas
+            }
+        })
+    }
+
+    function limparCoresBackgroundOpcoes() {
+        const options = document.getElementsByName("option");
+        options.forEach((option) => {
+            document.getElementById(option.labels[0].id).classList.remove("erro")
+            document.getElementById(option.labels[0].id).classList.remove("sucesso")
+        })
+    }
+
+    function desmarcarRadioButtons() {
+        const options = document.getElementsByName("option");
+        for (let i = 0; i < options.length; i++) { options[i].checked = false; }
+    }
+
+    function finalizarJogo() {
+
+        let textoParaMensagemFinal = null;
+        let classComCoresParaMensagemFinal = null;
+        const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes;
+
+        if (porcentagemFinalDeAcertos <= 0.3) {
+            textoParaMensagemFinal = "Parece que você não estudou...";
+            classComCoresParaMensagemFinal = "erro";
+        } else if (porcentagemFinalDeAcertos < 0.9) {
+            textoParaMensagemFinal = "Pode melhorar na próxima, hein!";
+            classComCoresParaMensagemFinal = "aviso";
+        } else {
+            textoParaMensagemFinal = "Uau, parabéns!";
+            classComCoresParaMensagemFinal = "sucesso";
+        }
+
+        textoParaMensagemFinal += "<br> Você acertou " + Math.round(porcentagemFinalDeAcertos * 100) + "% das questões.";
+
+        document.getElementById("msgFinal").innerHTML = textoParaMensagemFinal;
+        document.getElementById("msgFinal").classList.add(classComCoresParaMensagemFinal);
+        document.getElementById("spanPontuacaoFinal").innerHTML = pontuacaoFinal;
+
+        btnProx.disabled = true;
+        btnSubmeter.disabled = true;
+        btnTentarNovamente.disabled = false;
+
+        fetch("/quiz/salvar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                acertos: pontuacaoFinal,
+                idUsuario: sessionStorage.ID_USUARIO
+            })
+        })
+            .then(function (resposta) {
+                return resposta.text();
+            })
+            .then(function (texto) {
+                console.log("Resposta do servidor:", texto);
+            })
+            .catch(function (erro) {
+                console.log("Erro:", erro);
+            });
+
+    }
+
+</script>
+
+<style>
+
+    body {
+
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        background: #f5f5f5;
+
+    }
+
+
+    .menu {
+
+        width: 220px;
+        height: 100vh;
+        background: #111;
+        color: white;
+        padding: 20px;
+
+    }
+
+
+    .menu h1 {
+
+        font-size: 35px;
+
+    }
+
+
+    .menu p {
+
+        margin-top: 30px;
+
+    }
+
+
+    .menu a {
+
+        color: white;
+        text-decoration: none;
+
+    }
+
+    .conteudo {
+
+        width: 100%;
+        padding: 30px;
+
+    }
+
+
+    button {
+
+        background: #111;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        cursor: pointer;
+        margin-top: 10px;
+
+    }
+
+
+    button:hover {
+
+        background: #333;
+
+    }
+
+
+    #btnIniciarQuiz {
+
+        font-size: 18px;
+        padding: 15px 30px;
+
+    }
+
+
+    .coluna {
+
+        display: flex;
+        flex-direction: column;
+
+    }
+
+
+    .caixa {
+
+        width: fit-content;
+
+    }
+
+
+    .espaco {
+
+        padding: 20px;
+
+    }
+
+
+    .negrito {
+
+        font-weight: bold;
+
+    }
+
+
+    #pontuacao {
+
+        margin-top: 20px;
+        width: 400px;
+
+    }
+
+
+    #pontuacaoDuranteJogo,
+    #pontuacaoFinalJogo {
+
+        border: 1px solid black;
+        background: white;
+        margin-bottom: 15px;
+
+    }
+
+
+    #jogo {
+
+        border: 1px solid black;
+        background: white;
+        width: 700px;
+        margin-top: 20px;
+
+    }
+
+
+    #infoQuestao {
+
+        font-size: 18px;
+
+    }
+
+
+    #spanQuestaoExibida {
+
+        font-size: 25px;
+
+    }
+
+
+    #opcoes span {
+
+        margin: 10px 0;
+
+    }
+
+
+    .opcao {
+
+        border: 1px solid black;
+        padding: 12px;
+        display: inline-block;
+        width: 90%;
+        cursor: pointer;
+        background: white;
+
+    }
+
+
+    .opcao:hover {
+
+        background: #eeeeee;
+
+    }
+
+
+    .radio {
+
+        margin-right: 10px;
+
+    }
+
+
+    .sucesso {
+
+        background: #d4edda;
+
+    }
+
+
+    .erro {
+
+        background: #f8d7da;
+
+    }
+
+
+    .aviso {
+
+        background: #fff3cd;
+
+    }
+
+
+    #msgFinal {
+
+        margin-top: 15px;
+        padding: 15px;
+
+    }
+
+</style>
